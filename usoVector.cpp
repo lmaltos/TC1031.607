@@ -1,6 +1,7 @@
 #include <vector>
 #include <cstdlib>
 #include <iostream>
+#include <time.h>
 
 using namespace std;
 
@@ -11,6 +12,7 @@ int main() {
     vector<int> myVect;
     int n = 1000;
     int a,b;
+    srand(time(0)); // semilla aleatoria para funcion rand
     for (int i = 0; i < n; i++) {
         myVect.push_back(rand());
     }
