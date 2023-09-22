@@ -68,12 +68,146 @@ void Decalogo03() {
     cout << "q = " << q << endl;
     cout << "*q = " << *q << endl;
     delete q;
+    q = NULL;
     cout << "Despues de delete" << endl;
     cout << "&q = " << &q << endl;
     cout << "q = " << q << endl;
-    cout << "*q = " << *q << endl;
+    cout << "*q = " << *q << endl; // Segmentarion fault
+}
+
+void Decalogo04() {
+    int *p, *q = NULL;
+    cout << "p = " << p << endl;
+    cout << "q = " << q << endl;
+}
+
+void Decalogo05() {
+    int *p, a = 41;
+    cout << "p = " << p << endl;
+    //delete p; puede tronar si p != 0
+    p = new int;
+    cout << "p = " << p << endl;
+    *p = 56;
+    cout << "*p = " << *p << endl;
+    delete p;
+    cout << "delete p" << endl;
+    cout << "p = " << p << endl;
+    cout << "*p = " << *p << endl;
+    //delete p; // ya no apunta a memoria dinamica
+    cout << "p = &a" << endl;
+    p = &a;
+    cout << "p = " << p << endl;
+    cout << "*p = " << *p << endl;
+    //delete p; // munmap_chunk(): invalid pointer
+    p = NULL;
+    delete p;
+}
+
+void Decalogo06() {
+    int *p = NULL;
+    cout << "&p = " << &p << endl;
+    cout << "p = " << p << endl;
+    cout << "*p = " << *p << endl;
+}
+
+void Decalogo07() {
+    int *p;
+    cout << "p = " << p << endl;
+    p = new int;
+    cout << "p = new int" << endl;
+    *p = 55;
+    cout << "p = " << p << endl;
+    cout << "*p = " << *p << endl;
+    p = new int; // referencia anterior a p no fue liberada :(
+    cout << "p = new int" << endl;
+    cout << "p = " << p << endl;
+    cout << "*p = " << *p << endl;
+    delete p;
+}
+
+void Decalogo08() {
+    int a,b,c;
+    int *p;
+    cout << "&a = " << &a << endl;
+    cout << "&b = " << &b << endl;
+    cout << "&c = " << &c << endl;
+    cout << "&p = " << &p << endl;
+    a = 23;
+    b = 34;
+    c = 45;
+    cout << "a = " << a << "\tb = " << b << "\tc = " << c << endl;
+    p = &a;
+    *p = 56;
+    cout << "p = &a; *p = 56" << endl;
+    cout << "a = " << a << "\tb = " << b << "\tc = " << c << endl;
+    p++;
+    *p = 67;
+    cout << "p++; *p = 67" << endl;
+    cout << "a = " << a << "\tb = " << b << "\tc = " << c << endl;
+    p++;
+    *p = 78;
+    cout << "p++; *p = 78" << endl;
+    cout << "a = " << a << "\tb = " << b << "\tc = " << c << endl;
+    p++;
+    cout << "p = " << p << endl;
+    cout << "*p = " << *p << endl;
+}
+
+void Decalogo09() {
+    int *p, *q;
+    int a,b,c;
+    cout << "&a = " << &a << endl;
+    cout << "&b = " << &b << endl;
+    cout << "&c = " << &c << endl;
+    p = &a;
+    q = &c;
+    if (p == q) {
+        cout << "p == q\t" << p << endl;
+    }
+    else {
+        cout << "p != q\t" << p << " != " << q << endl;
+    }
+    p++;
+    cout << "p++" << endl;
+    if (p == q) {
+        cout << "p == q\t" << p << endl;
+    }
+    else {
+        cout << "p != q\t" << p << " != " << q << endl;
+    }
+    p++;
+    cout << "p++" << endl;
+    if (p != q) {
+        cout << "p != q\t" << p << " != " << q << endl;
+    }
+    else {
+        cout << "p == q\t" << p << endl;
+    }
+
+}
+
+void Decalogo10() {
+    string *p;
+    int *q;
+    p = new string;
+    *p = "hola";
+    cout << "*p = " << *p << endl;
+    *p += " mundo";
+    cout << "*p = " << *p << endl;
+    delete p;
+
+    q = new int;
+    *q = 5;
+    cout << "*q =5 " << *q << endl;
+    (*q)++;
+    cout << "(*q)++ " << *q << endl;
+    *q /= 2;
+    cout << "*q /=2 " << *q << endl;
+    *q *= 7;
+    cout << "*q *=7 " << *q << endl;
+    delete q;
 }
 
 int main() {
-    Decalogo03();
+    Decalogo10();
 }
