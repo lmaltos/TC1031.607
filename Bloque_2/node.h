@@ -1,5 +1,6 @@
 #ifndef NODE_H
 #define NODE_H
+#include <cstddef>
 
 template <class T>
 class node {
@@ -18,6 +19,7 @@ class node {
 template <class T>
 node<T>::node(T _data) {
     data = _data;
+    next = NULL;
 }
 
 template <class T>
