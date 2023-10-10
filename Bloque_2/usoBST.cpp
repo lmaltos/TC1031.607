@@ -1,4 +1,5 @@
 #include <iostream>
+#include "nodeT.h"
 #include "BST.h"
 
 using namespace std;

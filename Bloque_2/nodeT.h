@@ -31,6 +31,11 @@ nodeT<T>::nodeT(T data) {
 }
 
 template <typename T>
+T nodeT<T>::Data() {
+    return data;
+}
+
+template <typename T>
 nodeT<T>* nodeT<T>::Left() {
     return left;
 }
