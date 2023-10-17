@@ -1,7 +1,7 @@
 #ifndef BST_H
 #define BST_H
 #include "nodeT.h"
-//#include <iostream>
+#include <iostream>
 
 template <typename T>
 class BST {
@@ -9,9 +9,17 @@ class BST {
     nodeT<T> *root; // podemos seguir sin definir el tipo de dato T
   public:
     BST();
+    ~BST();
+    void borraNodo(nodeT<T>*);
     bool search(T);
     void push(T);
     void pop(T);
+    void printPreorden();
+    void preoden(nodeT<T>*);
+    void printInorden();
+    void inorden(nodeT<T>*);
+    void printPostorden();
+    void postorden(nodeT<T>*);
 };
 
 template <typename T>
@@ -19,6 +27,20 @@ BST<T>::BST() {
     root = NULL;
 }
 
+template <typename T>
+BST<T>::~BST() {
+    borraNodo(root);
+}
+
+template <typename T>
+void BST<T>::borraNodo(nodeT<T> *nodo) {
+    if (nodo == NULL)
+        return;
+    borraNodo(nodo->Left());
+    borraNodo(nodo->Right());
+    std::cout << "Delete nodo " << nodo->Data() << std::endl;
+    delete nodo;
+}
 template <typename T>
 bool BST<T>::search(T data) {
     nodeT<T>* p;
@@ -85,7 +107,7 @@ void BST<T>::pop(T data) {
     }
     else if (p->Left() != NULL && p->Right() != NULL) { // nodo padre con dos hijos
         nodeT<T> *predecesor;
-        node<T> *subarbolIzq;
+        nodeT<T> *subarbolIzq;
         predecesor = p->Left(); // uno a la izquierda
         padre = p; // rehusamos padre para guardar referencia a padre del predecesor
         while (predecesor->Right() != NULL) {
@@ -103,7 +125,7 @@ void BST<T>::pop(T data) {
         }
     }
     else { // nodo padre con un hijo
-        node<T> *subarbol;
+        nodeT<T> *subarbol;
         subarbol = p->Left() != NULL ? p->Left() : p->Right(); // referencia a subarbol
         delete p; // liberamos el nodo
         if (padre == NULL) {
@@ -120,4 +142,45 @@ void BST<T>::pop(T data) {
 }
 }
 
+template <typename T>
+void BST<T>::printPreorden(){
+    preoden(root);
+}
+
+template <typename T>
+void BST<T>::preoden(nodeT<T>* nodo) {
+    if (nodo == NULL)
+        return;
+    std::cout << nodo->Data() << " ";
+    preoden(nodo->Left());
+    preoden(nodo->Right());
+}
+
+template <typename T>
+void BST<T>::printInorden(){
+    inorden(root);
+}
+
+template <typename T>
+void BST<T>::inorden(nodeT<T>* nodo){
+    if (nodo == NULL)
+        return;
+    inorden(nodo->Left());
+    std::cout << nodo->Data() << " ";
+    inorden(nodo->Right());
+}
+
+template <typename T>
+void BST<T>::printPostorden(){
+    postorden(root);
+}
+
+template <typename T>
+void BST<T>::postorden(nodeT<T>* nodo){
+    if (nodo == NULL)
+        return;
+    postorden(nodo->Left());
+    postorden(nodo->Right());
+    std::cout << nodo->Data() << " ";
+}
 #endif
