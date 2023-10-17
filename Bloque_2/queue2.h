@@ -32,6 +32,7 @@ void queue2<T>::push(T data) {
     }
     else {
         nodo->setNext(tail->getNext());
+        tail->setNext(nodo);
     }
     tail = nodo;
 }
@@ -40,7 +41,7 @@ template <typename T>
 void queue2<T>::pop() {
     if (isEmpty())
         return;
-    node<T> inicial = tail->getNext();
+    node<T> *inicial = tail->getNext();
     if (inicial->getNext() == inicial) {
         tail = NULL;
     }
@@ -52,7 +53,7 @@ void queue2<T>::pop() {
 
 template <typename T>
 T queue2<T>::front() {
-    node<T> inicial = tail->getNext();
+    node<T> *inicial = tail->getNext();
     return inicial->getData();
 }
 
