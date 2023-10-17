@@ -33,4 +33,7 @@ int main() {
     cout << "Postorden" << endl;
     arbol.printPostorden();
     cout << endl;
+    cout << "Por Nivel" << endl;
+    arbol.printPorNivel();
+    cout << endl;
 }

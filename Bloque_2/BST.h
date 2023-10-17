@@ -1,6 +1,7 @@
 #ifndef BST_H
 #define BST_H
 #include "nodeT.h"
+#include "queue2.h"
 #include <iostream>
 
 template <typename T>
@@ -20,6 +21,8 @@ class BST {
     void inorden(nodeT<T>*);
     void printPostorden();
     void postorden(nodeT<T>*);
+    void printPorNivel();
+    int calcNivel(nodeT<T>*);
 };
 
 template <typename T>
@@ -183,4 +186,43 @@ void BST<T>::postorden(nodeT<T>* nodo){
     postorden(nodo->Right());
     std::cout << nodo->Data() << " ";
 }
+
+template <typename T>
+void BST<T>::printPorNivel() {
+    queue2<nodeT<T>*> fila;
+    nodeT<T> *nodo;
+    int nivel = 0;
+    if (root != NULL) {
+        fila.push(root);
+    }
+    while (!fila.isEmpty()) {
+        nodo = fila.front(); // se obtiene el siguiente nodo a procesar
+        if (nodo->Left() != NULL) {
+            //std::cout << "Se agrega nodo izquierdo de " << nodo->Data() << std::endl;
+            fila.push(nodo->Left()); // agregamos nodo izquierdo si no es nulo
+        }
+        if (nodo->Right() != NULL) {
+            //std::cout << "Se agrega nodo derecho de " << nodo->Data() << std::endl;
+            fila.push(nodo->Right()); // agregamos nodo derecho si no es nulo
+        }
+        fila.pop(); // se remueve el nodo
+        if (calcNivel(nodo) != nivel) {
+            std::cout << std::endl; // ocurrió un cambio de nivel
+            nivel++;
+        }
+        std::cout << nodo->Data() << " ";
+    }
+}
+
+template <typename T>
+int BST<T>::calcNivel(nodeT<T>* nodo){
+    int nivel = 0;
+    nodeT<T> *p = root;
+    while (p != nodo) {
+        p = p->Data() > nodo->Data() ? p->Left() : p->Right();
+        nivel++;
+    }
+    return nivel;
+}
+
 #endif
