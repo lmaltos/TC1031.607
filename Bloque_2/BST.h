@@ -6,7 +6,7 @@
 
 template <typename T>
 class BST {
-  private:
+  protected:
     nodeT<T> *root; // podemos seguir sin definir el tipo de dato T
   public:
     BST();
