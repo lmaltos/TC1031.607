@@ -13,13 +13,13 @@ int main() {
     int i;
     archivo.open("grafoEjemplo.txt");
     while (!archivo.eof()) {
-        cout << "add nodo " << id << endl;
         archivo >> id;
         getline(archivo,linea);
         //istringstream iss(linea);
         n = g.addNodo(id);
+        cout << "add nodo " << id << endl;
         g.addAdyacencia(n,"");
-        i = 0;
+        i = 1;
         while (i < linea.length()) {
             idAdyacencia = linea[i];
             g.addAdyacencia(n,idAdyacencia);
