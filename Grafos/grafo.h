@@ -10,6 +10,7 @@ class grafo {
     nodo* addNodo(std::string);
     void addAdyacencia(nodo*,std::string);
     void BreadthFirst();
+    nodo* getNodoByID(std::string);
 };
 
 #endif

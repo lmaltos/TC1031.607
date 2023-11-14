@@ -18,6 +18,7 @@ class nodo {
   public:
     nodo(std::string _id) {id = _id;}
     ~nodo();
+    std::string Id() {return id;}
     void addAdyacencia(std::string);
     adyacencia* getAdyacencia() {return conexiones;}
     nodo* getNext() {return next;}
