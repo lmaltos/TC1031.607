@@ -1,5 +1,5 @@
 #include "grafo.h"
-//#include "../Bloque_2/queue2.h" // se incluye fila implementada previamente
+#include "../Bloque_2/stack2.h" // se incluye stack implementada previamente
 #include <queue>
 #include <iostream>
 
@@ -90,6 +90,39 @@ void grafo::BreadthFirst() {
                 }
             }
         }  
+        v = v->getNext();
+    }
+    std::cout << std::endl;
+}
+
+void grafo::DepthFirst() {
+    nodo *v = head;
+    while (v != nullptr) {
+        v->setEstatus(enEspera);
+        v = v->getNext();
+    }
+    v = head;
+    stack2<nodo*> pila;
+    while (v != nullptr) {
+        if (v->getEstatus() == enEspera) {
+            pila.push(v);
+            while (!pila.isEmpty()) {
+                nodo *u = pila.Top();
+                pila.pop();
+                if (u->getEstatus() == enEspera) {
+                    std::cout << u->Id() << " ";
+                    u->setEstatus(procesado);
+                    adyacencia *adyacencias = u->getAdyacencia();
+                    while (adyacencias != nullptr) {
+                        nodo *a = getNodoByID(adyacencias->Id());
+                        if (a->getEstatus() == enEspera) {
+                            pila.push(a);
+                        }
+                        adyacencias = adyacencias->getNext();
+                    }
+                }
+            }
+        }
         v = v->getNext();
     }
     std::cout << std::endl;

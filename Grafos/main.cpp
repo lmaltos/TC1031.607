@@ -25,5 +25,6 @@ int main() {
     }
     archivo.close();
     g.BreadthFirst();
+    g.DepthFirst();
     return 0;
 }
